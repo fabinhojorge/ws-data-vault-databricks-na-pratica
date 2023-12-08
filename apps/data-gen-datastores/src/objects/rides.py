@@ -20,12 +20,15 @@ class Rides:
 
     def get_multiple_rows(self, gen_dt_rows):
 
+        current_datetime = datetime.now()
+        formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+
         get_rides_data = pd.read_csv(self.rides_files_location)
         get_rides_data.columns = get_rides_data.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '')
         get_rides_data = get_rides_data.replace({np.nan: None})
 
         get_rides_data['user_id'] = np.random.randint(0, 1000, size=(len(get_rides_data), 1))
-        get_rides_data['dt_current_timestamp'] = str(datetime.now())
+        get_rides_data['dt_current_timestamp'] = formatted_timestamp
         get_rides_data['price'] = get_rides_data['price'].fillna(0)
 
         df = get_rides_data[['user_id', 'time_stamp', 'source', 'destination', 'distance', 'price', 'surge_multiplier', 'id', 'product_id', 'name', 'cab_type', 'dt_current_timestamp']].sample(int(gen_dt_rows))

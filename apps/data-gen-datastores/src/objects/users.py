@@ -27,6 +27,9 @@ class Users(object):
 
     def __init__(self):
 
+        current_datetime = datetime.now()
+        formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+
         self.user_id = randint(0, 1000)
         self.uuid = fake.uuid4()
         self.first_name = fake.first_name()
@@ -39,7 +42,7 @@ class Users(object):
         self.phone_number = fake.phone_number()
         self.last_access_time = fake.iso8601()
         self.time_zone = fake.timezone()
-        self.dt_current_timestamp = datetime.now()
+        self.dt_current_timestamp = formatted_timestamp
 
     @staticmethod
     def get_multiple_rows(gen_dt_rows):

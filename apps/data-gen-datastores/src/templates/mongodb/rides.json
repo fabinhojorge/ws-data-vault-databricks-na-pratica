@@ -1,0 +1,16 @@
+[
+  {
+    "user_id": 1341,
+    "time_stamp": 1543656177757,
+    "source": "Beacon Hill",
+    "destination": "Boston University",
+    "distance": 2.27,
+    "price": 8.5,
+    "surge_multiplier": 1.0,
+    "id": "9720822d-5bd1-43e5-ab02-167e6eacc66b",
+    "product_id": "9a0e7b09-b92b-4c41-9779-2ad22b4d779d",
+    "name": "WAV",
+    "cab_type": "Uber",
+    "dt_current_timestamp": "2023-12-08 17:37:55.923"
+  }
+]

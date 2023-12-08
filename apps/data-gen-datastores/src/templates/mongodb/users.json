@@ -1,0 +1,42 @@
+[
+  {
+    "id": 9311,
+    "uid": "557c1049-4178-48d9-9185-8b32bab1644e",
+    "password": "3ur9etDBKh",
+    "first_name": "Sammie",
+    "last_name": "Green",
+    "username": "sammie.green",
+    "email": "sammie.green@email.com",
+    "gender": "Genderfluid",
+    "phone_number": "+51 557.317.7059 x11280",
+    "social_insurance_number": "574128856",
+    "date_of_birth": "1966-05-10",
+    "employment": {
+      "title": "Regional Education Developer",
+      "key_skill": "Problem solving"
+    },
+    "address": {
+      "city": "Paulinaport",
+      "street_name": "Runte Curve",
+      "street_address": "884 James Rue",
+      "zip_code": "80972",
+      "state": "Montana",
+      "country": "United States",
+      "coordinates": {
+        "lat": -58.079995201,
+        "lng": 125.9257884937
+      }
+    },
+    "credit_card": {
+      "cc_number": "6771-8993-8087-4072"
+    },
+    "subscription": {
+      "plan": "Free Trial",
+      "status": "Pending",
+      "payment_method": "WeChat Pay",
+      "term": "Annual"
+    },
+    "user_id": 2461,
+    "dt_current_timestamp": "2023-12-08 17:37:55.925"
+  }
+]

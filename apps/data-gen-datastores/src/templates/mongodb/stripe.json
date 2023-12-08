@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1043,
+    "uid": "f3f6b438-7199-4d1f-9c6e-fe9c1b336d7b",
+    "valid_card": "4000056655665556",
+    "token": "tok_mastercard_prepaid",
+    "invalid_card": "4000000000000010",
+    "month": "08",
+    "year": "2028",
+    "ccv": "263",
+    "ccv_amex": "1981",
+    "user_id": 2376,
+    "dt_current_timestamp": "2023-12-08 17:37:55.928"
+  }
+]

@@ -16,7 +16,9 @@ class Requests(object):
 
     @staticmethod
     def gen_timestamp():
-        return datetime.now()
+        current_datetime = datetime.now()
+        formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        return formatted_timestamp
 
     @staticmethod
     def api_get_request(url, params):
