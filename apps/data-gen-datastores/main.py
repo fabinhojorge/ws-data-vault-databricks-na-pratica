@@ -1,3 +1,6 @@
+# TODO construct readme.md
+# TODO build api using fastapi
+
 """
 SQL Server:
 - Users
@@ -47,25 +50,48 @@ class BlobStorage(object):
     """
 
     def __init__(self, str_blob_stg, container_name):
+        """
+        Initialize the BlobStorage object.
+
+        Args:
+            str_blob_stg: The connection string for the blob storage.
+            container_name: The name of the container.
+        """
 
         self.blob_storage_conn_str = str_blob_stg
         self.container_landing = container_name
 
     @staticmethod
     def create_dataframe(dt, ds_type):
+        """
+        Create a dataframe based on the provided data and data source type.
+
+        Args:
+            dt: The data to create the dataframe from.
+            ds_type: The type of the data source.
+
+        Returns:
+            tuple: A tuple containing the JSON-encoded dataframe and the data source type.
+        """
 
         if ds_type == "redis":
             pd_df = pd.DataFrame(dt)
-            json_data = pd_df.to_json(orient="records").encode('utf-8')
         else:
             pd_df = pd.DataFrame(dt)
             pd_df['user_id'] = api.gen_user_id()
             pd_df['dt_current_timestamp'] = api.gen_timestamp()
-            json_data = pd_df.to_json(orient="records").encode('utf-8')
-
+        json_data = pd_df.to_json(orient="records").encode('utf-8')
+        
         return json_data, ds_type
 
     def upload_blob(self, json_data, file_name):
+        """
+        Upload a blob to the specified container.
+
+        Args:
+            json_data: The JSON data to upload.
+            file_name: The name of the file to upload.
+        """
 
         blob_service_client = BlobServiceClient.from_connection_string(self.blob_storage_conn_str)
         container_client = blob_service_client.get_container_client(self.container_landing)
@@ -73,7 +99,15 @@ class BlobStorage(object):
         blob_client.upload_blob(json_data)
 
     def write_file(self, ds_type: str):
-        year, month, day, hour, minute, second = datetime.today().strftime("%Y %m %d %H %M %S").split()
+        """
+        Write files based on the specified data source type.
+
+        Args:
+            ds_type: The type of the data source.
+        """
+        year, month, day, hour, minute, second = (
+            datetime.now().strftime("%Y %m %d %H %M %S").split()
+        )
 
         params = {'size': 100}
         urls = {
@@ -102,6 +136,8 @@ class BlobStorage(object):
             credit_card_file_name = file_prefix + "/credit_card" + "/" + timestamp
             self.upload_blob(credit_card_json, credit_card_file_name)
 
+            return user_file_name, credit_card_file_name
+
         elif ds_type == "postgres":
             dt_payments = payments.get_multiple_rows(gen_dt_rows=100)
             dt_subscription = api.api_get_request(url=urls["subscription"], params=params)
@@ -117,6 +153,8 @@ class BlobStorage(object):
 
             subscription_file_name = file_prefix + "/subscription" + "/" + timestamp
             self.upload_blob(subscription_json, subscription_file_name)
+
+            return payments_file_name, subscription_file_name
 
         elif ds_type == "mongodb":
             dt_rides = rides.get_multiple_rows(gen_dt_rows=100)
@@ -138,6 +176,8 @@ class BlobStorage(object):
 
             stripe_file_name = file_prefix + "/stripe" + "/" + timestamp
             self.upload_blob(stripe_json, stripe_file_name)
+
+            return rides_file_name, users_file_name, stripe_file_name
 
         elif ds_type == "redis":
             user_id = random.randint(1, 10000)
@@ -171,8 +211,4 @@ class BlobStorage(object):
             apple_auth_file_name = file_prefix + "/apple_auth" + "/" + timestamp
             self.upload_blob(apple_auth_json, apple_auth_file_name)
 
-
-BlobStorage(blob_storage_conn_str, container_landing).write_file(ds_type="mssql")
-BlobStorage(blob_storage_conn_str, container_landing).write_file(ds_type="postgres")
-BlobStorage(blob_storage_conn_str, container_landing).write_file(ds_type="mongodb")
-BlobStorage(blob_storage_conn_str, container_landing).write_file(ds_type="redis")
+            return google_auth_file_name, linkedin_auth_file_name, apple_auth_file_name

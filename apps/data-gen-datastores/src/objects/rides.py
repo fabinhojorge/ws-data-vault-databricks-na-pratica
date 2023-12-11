@@ -14,11 +14,27 @@ rides_files_location = os.getenv("RIDES_FILES")
 
 
 class Rides:
+    """
+    A class that provides methods for retrieving ride data.
+    """
 
     def __init__(self):
+        """
+        Initialize the Rides object.
+        """
+
         self.rides_files_location = rides_files_location
 
     def get_multiple_rows(self, gen_dt_rows):
+        """
+        Get multiple rows of ride data.
+
+        Args:
+            gen_dt_rows: The number of rows to generate.
+
+        Returns:
+            list: A list of dictionaries representing ride data.
+        """
 
         current_datetime = datetime.now()
         formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -32,6 +48,4 @@ class Rides:
         get_rides_data['price'] = get_rides_data['price'].fillna(0)
 
         df = get_rides_data[['user_id', 'time_stamp', 'source', 'destination', 'distance', 'price', 'surge_multiplier', 'id', 'product_id', 'name', 'cab_type', 'dt_current_timestamp']].sample(int(gen_dt_rows))
-        df_dict = df.to_dict('records')
-
-        return df_dict
+        return df.to_dict('records')

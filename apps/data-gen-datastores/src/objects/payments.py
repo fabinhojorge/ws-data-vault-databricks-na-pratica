@@ -11,11 +11,27 @@ payments_file_location = os.getenv("PAYMENTS_FILES")
 
 
 class Payments:
+    """
+    A class that provides methods for retrieving payment data.
+    """
 
     def __init__(self):
+        """
+        Initialize the Payments object.
+        """
+
         self.user_file_location = payments_file_location
 
     def get_multiple_rows(self, gen_dt_rows):
+        """
+        Get multiple rows of payment data.
+
+        Args:
+            gen_dt_rows: The number of rows to generate.
+
+        Returns:
+            list: A list of dictionaries representing payment data.
+        """
 
         current_datetime = datetime.now()
         formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -42,5 +58,4 @@ class Payments:
                 'dt_current_timestamp'
             ]].head(int(gen_dt_rows))
 
-        payments_list = user_output.to_dict('records')
-        return payments_list
+        return user_output.to_dict('records')

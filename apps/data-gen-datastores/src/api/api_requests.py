@@ -1,7 +1,3 @@
-"""
-https://random-data-api.com/api/
-"""
-
 import numpy as np
 import requests
 from datetime import datetime
@@ -9,19 +5,52 @@ from requests.exceptions import HTTPError
 
 
 class Requests(object):
+    """
+    A class that provides methods for generating user IDs, timestamps, and making API GET requests.
+
+    Returns:
+        https://random-data-api.com/api/
+    """
 
     @staticmethod
     def gen_user_id():
+        """
+        Generate a random user ID.
+
+        Returns:
+            numpy.ndarray: An array of random user IDs.
+        """
+
         return np.random.randint(1, 10000, size=100)
 
     @staticmethod
     def gen_timestamp():
+        """
+        Generate a formatted timestamp.
+
+        Returns:
+            str: A formatted timestamp string.
+        """
+
         current_datetime = datetime.now()
-        formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-        return formatted_timestamp
+        return current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 
     @staticmethod
     def api_get_request(url, params):
+        """
+        Make an API GET request.
+
+        Args:
+            url (str): The URL of the API endpoint.
+            params (dict): The parameters to include in the request.
+
+        Returns:
+            dict: The JSON response from the API.
+
+        Raises:
+            HTTPError: If an HTTP error occurs during the request.
+            Exception: If the API is not available at the moment.
+        """
 
         dt_request = requests.get(url=url, params=params)
         for url in [url]:

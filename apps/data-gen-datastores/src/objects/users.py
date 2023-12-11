@@ -8,6 +8,9 @@ Faker.seed(randint(0, 10000000000))
 
 
 class Users(object):
+    """
+    A class that represents user objects and provides methods for retrieving user data.
+    """
 
     __slots__ = [
                     "user_id",
@@ -26,6 +29,9 @@ class Users(object):
                 ]
 
     def __init__(self):
+        """
+        Initialize a User object with fake user data.
+        """
 
         current_datetime = datetime.now()
         formatted_timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -46,6 +52,15 @@ class Users(object):
 
     @staticmethod
     def get_multiple_rows(gen_dt_rows):
+        """
+        Get multiple rows of user data.
+
+        Args:
+            gen_dt_rows: The number of rows to generate.
+
+        Returns:
+            list: A list of dictionaries representing user data.
+        """
 
         i = 0
         list_return_data = []
@@ -70,5 +85,4 @@ class Users(object):
             i += 1
 
         df_list_data = pd.DataFrame(list_return_data)
-        return_dt = df_list_data.to_dict('records')
-        return return_dt
+        return df_list_data.to_dict('records')
