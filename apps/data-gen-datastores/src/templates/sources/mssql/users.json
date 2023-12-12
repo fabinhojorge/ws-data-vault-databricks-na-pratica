@@ -1,17 +1,15 @@
-[
-  {
-    "user_id": 5465,
-    "uuid": "e877251d-f100-43c8-8348-31c8e19a2a96",
-    "first_name": "Rachel",
-    "last_name": "Hartman",
-    "date_birth": "1932-08-19",
-    "city": "New Jennifer",
-    "country": "Ethiopia",
-    "company_name": "Allison PLC",
-    "job": "Radio producer",
-    "phone_number": "703.835.5777x13739",
-    "last_access_time": "1999-07-20T16:11:35.552337",
-    "time_zone": "Africa\/Kigali",
-    "dt_current_timestamp": "2023-12-08 17:37:46.944"
-  }
-]
+{
+  "user_id": 4239,
+  "uuid": "7c85548e-7613-42fe-a312-8ae5ce6fda1d",
+  "first_name": "Robert",
+  "last_name": "Fisher",
+  "date_birth": "1967-10-26",
+  "city": "Hudsonmouth",
+  "country": "Trinidad and Tobago",
+  "company_name": "Yoder LLC",
+  "job": "Health physicist",
+  "phone_number": "934.590.9266x119",
+  "last_access_time": "1986-10-22T04:52:12.416513",
+  "dt_current_timestamp": "2023-12-12 18:13:47.651",
+  "cpf": "609.868.826-58"
+}

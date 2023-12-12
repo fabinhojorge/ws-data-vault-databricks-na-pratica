@@ -1,15 +1,13 @@
-[
-  {
-    "id": 1043,
-    "uid": "f3f6b438-7199-4d1f-9c6e-fe9c1b336d7b",
-    "valid_card": "4000056655665556",
-    "token": "tok_mastercard_prepaid",
-    "invalid_card": "4000000000000010",
-    "month": "08",
-    "year": "2028",
-    "ccv": "263",
-    "ccv_amex": "1981",
-    "user_id": 2376,
-    "dt_current_timestamp": "2023-12-08 17:37:55.928"
-  }
-]
+{
+  "id": 3879,
+  "uid": "47026490-9cd4-4ab8-aae4-31f39d359349",
+  "valid_card": "3566002020360505",
+  "token": "tok_mastercard",
+  "invalid_card": "4000000000009235",
+  "month": "10",
+  "year": "2028",
+  "ccv": "264",
+  "ccv_amex": "3815",
+  "user_id": 253,
+  "dt_current_timestamp": "2023-12-11 13:11:04.046"
+}
