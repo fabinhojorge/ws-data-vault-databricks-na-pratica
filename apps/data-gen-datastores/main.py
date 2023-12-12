@@ -32,7 +32,7 @@ import pandas as pd
 from azure.storage.blob import BlobServiceClient
 from dotenv import load_dotenv
 from datetime import datetime
-from src.objects import users, rides, payments
+from src.objects import users, rides, payments, vehicle
 from src.api import api_requests
 
 load_dotenv()
@@ -43,6 +43,7 @@ container_landing = os.getenv("LANDING_CONTAINER_NAME")
 users = users.Users()
 rides = rides.Rides()
 payments = payments.Payments()
+vehicle = vehicle.Vehicle()
 
 api = api_requests.Requests()
 
@@ -149,9 +150,11 @@ class BlobStorage(object):
         elif ds_type == "postgres":
             dt_payments = payments.get_multiple_rows(gen_dt_rows=100)
             dt_subscription = api.api_get_request(url=urls["subscription"], params=params)
+            dt_vehicle = vehicle.get_multiple_rows(gen_dt_rows=100)
 
             payments_json, ds_type = self.create_dataframe(dt_payments, ds_type)
             subscription_json, ds_type = self.create_dataframe(dt_subscription, ds_type)
+            dt_vehicle_json, ds_type = self.create_dataframe(dt_vehicle, ds_type)
 
             file_prefix = "com.owshq.data" + "/" + ds_type
             timestamp = f'{year}_{month}_{day}_{hour}_{minute}_{second}.json'
@@ -162,7 +165,10 @@ class BlobStorage(object):
             subscription_file_name = file_prefix + "/subscription" + "/" + timestamp
             self.upload_blob(subscription_json, subscription_file_name)
 
-            return payments_file_name, subscription_file_name
+            vehicle_file_name = file_prefix + "/vehicle" + "/" + timestamp
+            self.upload_blob(dt_vehicle_json, vehicle_file_name)
+
+            return payments_file_name, subscription_file_name, vehicle_file_name
 
         elif ds_type == "mongodb":
             dt_rides = rides.get_multiple_rows(gen_dt_rows=100)
