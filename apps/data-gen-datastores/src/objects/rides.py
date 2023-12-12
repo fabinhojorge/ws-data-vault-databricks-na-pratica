@@ -44,8 +44,9 @@ class Rides:
         get_rides_data = get_rides_data.replace({np.nan: None})
 
         get_rides_data['user_id'] = np.random.randint(0, 1000, size=(len(get_rides_data), 1))
+        get_rides_data['vehicle_id'] = np.random.randint(0, 8219, size=(len(get_rides_data), 1))
         get_rides_data['dt_current_timestamp'] = formatted_timestamp
         get_rides_data['price'] = get_rides_data['price'].fillna(0)
 
-        df = get_rides_data[['user_id', 'time_stamp', 'source', 'destination', 'distance', 'price', 'surge_multiplier', 'id', 'product_id', 'name', 'cab_type', 'dt_current_timestamp']].sample(int(gen_dt_rows))
+        df = get_rides_data[['user_id', 'vehicle_id', 'time_stamp', 'source', 'destination', 'distance', 'price', 'surge_multiplier', 'id', 'product_id', 'name', 'cab_type', 'dt_current_timestamp']].sample(int(gen_dt_rows))
         return df.to_dict('records')

@@ -1,5 +1,3 @@
-# TODO implement vehicle dataset {id}
-# TODO implement rides {vehicle_id}
 # TODO construct readme.md
 # TODO build api using fastapi
 
