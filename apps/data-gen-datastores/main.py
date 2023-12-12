@@ -1,3 +1,5 @@
+# TODO implement vehicle dataset {id}
+# TODO implement rides {vehicle_id}
 # TODO construct readme.md
 # TODO build api using fastapi
 
@@ -9,6 +11,7 @@ SQL Server:
 Postgres:
 - Payments
 - Subscription
+- Vehicle
 
 MongoDB:
 - Rides
@@ -62,13 +65,14 @@ class BlobStorage(object):
         self.container_landing = container_name
 
     @staticmethod
-    def create_dataframe(dt, ds_type):
+    def create_dataframe(dt, ds_type, is_cpf=False):
         """
         Create a dataframe based on the provided data and data source type.
 
         Args:
             dt: The data to create the dataframe from.
             ds_type: The type of the data source.
+            is_cpf: Whether generates a cpf.
 
         Returns:
             tuple: A tuple containing the JSON-encoded dataframe and the data source type.
@@ -80,8 +84,12 @@ class BlobStorage(object):
             pd_df = pd.DataFrame(dt)
             pd_df['user_id'] = api.gen_user_id()
             pd_df['dt_current_timestamp'] = api.gen_timestamp()
+
+            if is_cpf:
+                cpf_list = [api.gen_cpf() for _ in range(len(pd_df))]
+                pd_df['cpf'] = cpf_list
+
         json_data = pd_df.to_json(orient="records").encode('utf-8')
-        
         return json_data, ds_type
 
     def upload_blob(self, json_data, file_name):
@@ -124,7 +132,7 @@ class BlobStorage(object):
             dt_users = users.get_multiple_rows(gen_dt_rows=100)
             dt_credit_card = api.api_get_request(url=urls["credit_card"], params=params)
 
-            users_json, ds_type = self.create_dataframe(dt_users, ds_type)
+            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=True)
             credit_card_json, ds_type = self.create_dataframe(dt_credit_card, ds_type)
 
             file_prefix = "com.owshq.data" + "/" + ds_type
@@ -162,7 +170,7 @@ class BlobStorage(object):
             dt_stripe = api.api_get_request(url=urls["stripe"], params=params)
 
             rides_json, ds_type = self.create_dataframe(dt_rides, ds_type)
-            users_json, ds_type = self.create_dataframe(dt_users, ds_type)
+            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=True)
             stripe_json, ds_type = self.create_dataframe(dt_stripe, ds_type)
 
             file_prefix = "com.owshq.data" + "/" + ds_type

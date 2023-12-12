@@ -2,6 +2,7 @@ import numpy as np
 import requests
 from datetime import datetime
 from requests.exceptions import HTTPError
+from pycpfcnpj import gen
 
 
 class Requests(object):
@@ -22,6 +23,17 @@ class Requests(object):
         """
 
         return np.random.randint(1, 10000, size=100)
+
+    @staticmethod
+    def gen_cpf():
+        """
+        Generate a cpf number.
+
+        Returns:
+            str: A formatted cpf string.
+        """
+
+        return gen.cpf_with_punctuation()
 
     @staticmethod
     def gen_timestamp():
