@@ -11,8 +11,8 @@ export BLOB_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountNam
 export LANDING_CONTAINER_NAME='owshq-stg-files'
 ```
 
-### data model = star schema
+### star schema
 https://dbdiagram.io/d/workshop-dv-relational-dm-6577399256d8064ca0cf08c9
 
-### data model = data vault
+### data vault
 https://dbdiagram.io/d/workshop-data-vault-model-657a198c56d8064ca0fb4ab5

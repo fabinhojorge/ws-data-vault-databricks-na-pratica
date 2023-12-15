@@ -85,8 +85,8 @@ class BlobStorage(object):
             pd_df['dt_current_timestamp'] = api.gen_timestamp()
 
             if is_cpf:
-                cpf_list = [api.gen_cpf() for _ in range(len(pd_df))]
-                pd_df['cpf'] = cpf_list
+                # TODO cpf_list = [api.gen_cpf() for _ in range(len(pd_df))]
+                pd_df['cpf'] = is_cpf
 
         json_data = pd_df.to_json(orient="records").encode('utf-8')
         return json_data, ds_type
@@ -112,6 +112,9 @@ class BlobStorage(object):
         Args:
             ds_type: The type of the data source.
         """
+
+        gen_cpf = api.gen_cpf()
+
         year, month, day, hour, minute, second = (
             datetime.now().strftime("%Y %m %d %H %M %S").split()
         )
@@ -131,7 +134,7 @@ class BlobStorage(object):
             dt_users = users.get_multiple_rows(gen_dt_rows=100)
             dt_credit_card = api.api_get_request(url=urls["credit_card"], params=params)
 
-            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=True)
+            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=gen_cpf)
             credit_card_json, ds_type = self.create_dataframe(dt_credit_card, ds_type)
 
             file_prefix = "com.owshq.data" + "/" + ds_type
@@ -169,12 +172,13 @@ class BlobStorage(object):
             return payments_file_name, subscription_file_name, vehicle_file_name
 
         elif ds_type == "mongodb":
+
             dt_rides = rides.get_multiple_rows(gen_dt_rows=100)
             dt_users = api.api_get_request(url=urls["users"], params=params)
             dt_stripe = api.api_get_request(url=urls["stripe"], params=params)
 
-            rides_json, ds_type = self.create_dataframe(dt_rides, ds_type)
-            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=True)
+            rides_json, ds_type = self.create_dataframe(dt_rides, ds_type, is_cpf=gen_cpf)
+            users_json, ds_type = self.create_dataframe(dt_users, ds_type, is_cpf=gen_cpf)
             stripe_json, ds_type = self.create_dataframe(dt_stripe, ds_type)
 
             file_prefix = "com.owshq.data" + "/" + ds_type

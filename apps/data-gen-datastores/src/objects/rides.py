@@ -1,8 +1,9 @@
-from dotenv import load_dotenv
-from datetime import datetime
 import os
 import pandas as pd
 import numpy as np
+from dotenv import load_dotenv
+from datetime import datetime
+from pycpfcnpj import gen
 
 load_dotenv()
 
@@ -44,6 +45,7 @@ class Rides:
         get_rides_data = get_rides_data.replace({np.nan: None})
 
         get_rides_data['user_id'] = np.random.randint(0, 1000, size=(len(get_rides_data), 1))
+        # TODO get_rides_data['cpf'] = gen.cpf_with_punctuation()
         get_rides_data['vehicle_id'] = np.random.randint(0, 8219, size=(len(get_rides_data), 1))
         get_rides_data['dt_current_timestamp'] = formatted_timestamp
         get_rides_data['price'] = get_rides_data['price'].fillna(0)
