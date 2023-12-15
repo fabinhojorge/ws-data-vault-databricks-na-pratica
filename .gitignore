@@ -571,3 +571,5 @@ cython_debug/
 .idea/sonarlint/securityhotspotstore/a/d/ada5c003f522e035c714313c5e75ef01a80c5711
 
 .idea/sonarlint/securityhotspotstore/e/9/e948a158d3643d402eb65d19e30cbfd8a3784505
+
+.DS_Store
